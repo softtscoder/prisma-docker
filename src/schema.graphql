@@ -1,0 +1,63 @@
+# import User, Snippit, Message  from "./generated/prisma.graphql"
+# import SnippitSubscriptionWhereInput, SnippitSubscriptionPayload,  from "./generated/prisma.graphql"
+
+# import Query.snippitsConnection from "./generated/prisma.graphql"
+# import Query.messageConnection from "./generated/prisma.graphql"
+
+# import Query.users from "./generated/prisma.graphql"
+# import Query.snippits from "./generated/prisma.graphql"
+# import Query.messages from "./generated/prisma.graphql"
+
+# import Mutation.deleteSnippit from "./generated/prisma.graphql"
+# import Mutation.updateSnippit from "./generated/prisma.graphql"
+# import Mutation.createSnippit from "./generated/prisma.graphql"
+
+# import Mutation.createUser from "./generated/prisma.graphql"
+# import Mutation.updateUser from "./generated/prisma.graphql"
+# import Mutation.deleteUser from "./generated/prisma.graphql"
+
+# import Mutation.createMessage from "./generated/prisma.graphql"
+# import Mutation.updateMessage from "./generated/prisma.graphql"
+# import Mutation.deleteMessage from "./generated/prisma.graphql"
+
+type Subscription {
+  snippit: String!
+  ttest: String!
+  message: Message!
+}
+
+type Query {
+  me: User
+  rediss: [Snippit]!
+}
+
+type Mutation {
+  refreshToken: RefreshTokenPayload!
+  signup(
+    name: String!,
+    email: String!,
+    password: String!,
+    ): AuthPayload!
+  login(email: String!, password: String!): LoginResponse!
+}
+
+
+type RefreshTokenPayload {
+  token: String!
+  userId: String!
+}
+
+type AuthPayload {
+  token: String!
+  user: User!
+}
+
+type LoginResponse {
+  payload: AuthPayload
+  error: Error
+}
+
+type Error {
+  field: String!
+  msg: String!
+}

@@ -1,0 +1,570 @@
+### this file contains queries and mutations used in the GraphQL playground
+### for quick formatting and database seeding.
+
+{
+  "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjamxjdm9nNHUwMDB2MGQ0N2R3eGprZnA0IiwiZXhwaXJlc0luIjoiN2QiLCJpYXQiOjE1MzU5MzMyNjN9.yCRCEv8UaJybz3C4_mnOWlLbcu0waL38Muywu0hSQSc"
+}
+### Create Request Query Args
+{
+  "author": "cjjj0sapuq2vd0b37czhnbj80",
+  "recipient": "cjjj16bqeq43j0b378utu796v",
+  "title": "String!",
+  "text": "String!",
+  "wants": ["String"],
+  "isPublished": true
+}
+
+###############################################################################
+
+###############################################################################
+
+###############################################################################
+
+mutation zCreateUser{
+  signup(
+    name:"Brian",
+    email:"brian@brian.com",
+    password:"brian",
+    about:"Brian is a web developer",
+    interests: {set: ["candy", "guitar", "animals"]}
+  ) {
+    user{
+      id
+      name
+      about
+      interests
+    }
+  }
+}
+
+mutation zCreateSecondUser{
+  signup(
+    name:"Dad",
+    email:"Dad@Dad.com",
+    password:"Dad",
+    about:"Dad is an acountant",
+    interests: {set: ["cars", "chicken", "Tesla"]}
+  ) {
+    user{
+      id
+      name
+      about
+      interests
+    }
+  }
+}
+
+mutation zCreateThirdUser{
+  signup(
+    name:"Mom",
+    email:"Mom@Mom.com",
+    password:"Mom",
+    about:"Mom is in inventory control",
+    interests: {set: ["birds", "TV", "Music"]}
+  ) {
+    user{
+      id
+      name
+      about
+      interests
+    }
+  }
+}
+
+mutation qCreateSeller {
+  createSeller(data:{
+    patrons:{connect:{id: "cjjgby7gjd7b00b37sjyeo26q"}},
+    name: "Seller Dad",
+    sells:{set:["condy", "tacos", "buttsex"]},
+    identity:{connect:{id:"cjjgca7eld7x90b379dxoyeze"}},
+    about:"About Seller Dad"
+  }) {
+    id
+    about
+    name
+    patrons{
+      name
+    }
+  }
+}
+
+mutation zSignIntoApp {
+  login(
+    email: "brian@brian.com",
+    password: "brian") {
+    payload{
+      token
+      user{
+        name
+      }
+    }
+    error{
+      msg
+      field
+    }
+  }
+}
+
+mutation loginViaApp {
+  login(
+    email: "Dad@Dad.com",
+    password: "Dad") {
+    payload{
+      token
+      user{
+        name
+      }
+    }
+    error{
+      msg
+      field
+    }
+  }
+}
+
+mutation CreateRequest {
+  createRequest(data:{
+    author:{connect:{id:"cjjj0sapuq2vd0b37czhnbj80"}}
+    recipient:{connect:{id:"cjjj16bqeq43j0b378utu796v"}},
+    title:"First Request Title",
+    text:"First Request Text",
+    wants:{set:["candy", "tacos"]},
+    isPublished: true,
+  }) {
+    id
+    wants
+    recipient{
+      name
+    }
+    author{
+      name
+    }
+  }
+}
+
+mutation CreateFriendship {
+  createFriendship(data:{
+    friendsBecause: {set:["sells what I want", "history"]},
+    friend:{connect:{id:"cjjj16bqeq43j0b378utu796v"}},
+    offerAllowance: 5
+  }) {
+    id
+    friend{
+      name
+    }
+    offerAllowance
+  }
+}
+
+mutation AddFriendToUser {
+  updateUser(
+    where:{
+      id:"cjjj0sapuq2vd0b37czhnbj80"
+    },
+    data:{
+      friends:{connect:{id: "cjjj1vdbbq68k0b37img6gndw" }}
+    }
+  ) {
+    inbox{
+      author{
+        name
+      }
+    }
+    friends{
+      friend{
+        name
+      }
+      friendsBecause
+      offerAllowance
+    }
+  }
+}
+
+mutation zCreateOffer {
+  createOffer(data:{
+    author: {connect:{id:"cjjj16bqeq43j0b378utu796v"}},
+    recipient: {connect:{id:"cjjj0sapuq2vd0b37czhnbj80"}},
+    text:"Offer Text",
+    title:"Offer Title",
+    expiresAt:"2018-07-04T05:47:51.900Z",
+  }
+  ) {
+    title
+    author{
+      name
+    }
+    recipient{
+      name
+    }
+  }
+}
+
+mutation AddOfferToInbox {
+  updateUser(
+    where:{
+      id:"cjjhjp4v5hobb0b37jr4fhxc4"
+    },
+    data:{
+      inbox:{connect:{id: "cjjhkx187hscf0b378dwanld8" }}
+    }
+  ) {
+    inbox{
+      author{
+        name
+      }
+    }
+    friends{
+      friend{
+        name
+      }
+      friendsBecause
+      offerAllowance
+    }
+  }
+}
+
+mutation AddFriendToUser{
+  updateUser(data:{
+    friends:{connect: {id:}}
+  }) {
+    friends{
+      friend{
+        name
+      }
+    }
+  }
+}
+
+query FeedSellers {
+  sellers{
+    id
+    name
+  }
+}
+
+mutation CreateFriendship {
+  createFriendship(data:{
+    friendsBecause: {set:["8888", "8888"]},
+    friend:{connect:{id:"cjjj1bte7q4lv0b374t9po4af"}},
+    offerAllowance: 33
+  }) {
+    id
+    friend{
+      name
+    }
+    offerAllowance
+  }
+}
+
+mutation zSignIntoApp {
+  login(
+    email: "brian@brian.com",
+    password: "brian") {
+    payload{
+      token
+      user{
+        name
+      }
+    }
+    error{
+      msg
+      field
+    }
+  }
+}
+
+mutation zCreateOffer {
+  createOffer(data:{
+    author: {connect:{id:"cjjj16bqeq43j0b378utu796v"}},
+    recipient: {connect:{id:"cjjj0sapuq2vd0b37czhnbj80"}},
+    text:"Buy 2 get 1 free!",
+    title:"Great Offer!",
+    expiresAt:"2018-07-04T05:47:51.900Z",
+  }
+  ) {
+    title
+    author{
+      name
+    }
+    recipient{
+      name
+    }
+  }
+}
+
+mutation qCreateSeller {
+  createSeller(data:{
+    patrons:{connect:{id: "cjjj0sapuq2vd0b37czhnbj80"}},
+    name: "Seller: Dad",
+    sells:{set:["condy", "tacos", "fireworks"]},
+    identity:{connect:{id:"cjjj0umenq33u0b375zzfutbm"}},
+    about:"Seller Dad sells tacos and candy and fireworks"
+  }) {
+    id
+    about
+    name
+    patrons{
+      name
+    }
+  }
+}
+
+query zFeedUsers {
+  users{
+    id
+    name
+    friends{
+      friendsBecause
+      friend{
+        id
+        name
+
+      }
+    }
+  }
+}
+
+
+query (
+  $after: String,
+  $orderBy: OfferOrderByInput,
+  $id: ID
+) {
+  offersConnection(
+    after: $after,
+    first: 3,
+    orderBy: $orderBy,
+    where: {id:}) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      edges {
+        node {
+          id
+          title
+          text
+          author {
+            id
+            name
+          }
+        }
+      }
+    }
+}
+
+###############################################################################
+
+###############################################################################
+
+###############################################################################
+
+
+mutation createSnippit {
+  createSnippit(data:{
+    author:{connect:{id:"cjkc9mzt28ts70b12f0w7qh7g"}}
+    name:"redux reducer",
+    language:"language",
+    code:"const henery = \"the eighth \" \n } \n",
+    type:"boiler",
+    framework:"ReactJS",
+    notes:"do it like this",
+    companion:{
+      set:["https://material-ui.com/", "www.google.com", "www.briancilenti.com"]
+    },
+    keywords:{
+      set:["server", "mutation", "css", "styling", "css modules"]
+    },
+    reference:{
+      set:["https://github.com/keepforever/itm-server", "http://www.keepforeverrecords.com"]
+    },
+  }) {
+    id
+    wants
+    recipient{
+      name
+    }
+    author{
+      name
+    }
+  }
+}
+
+
+mutation zSignIntoApp {
+  login(
+    email: "b@b.com",
+    password: "b") {
+    payload{
+      token
+      user{
+        name
+        id
+        email
+        snippits{
+          id
+          name
+          notes
+          language
+          framework
+          code
+          type
+          author{
+            id
+            name
+          }
+          companion
+          keywords
+          createdAt
+          reference
+        }
+      }
+    }
+    error{
+      msg
+      field
+    }
+  }
+}
+
+query($orderBy: SnippitOrderByInput, $id: ID!) {
+    snippits(
+      orderBy: $orderBy,
+      where: { id: $id }
+    ) {
+      id
+      name
+      type
+      language
+      framework
+      code
+      notes
+      companion
+      keywords
+      reference
+      createdAt
+      author {
+        id
+        name
+      }
+    }
+  }
+
+
+###########################
+#############################
+###########################
+
+mutation myCreateMessage {
+  createMessage(data:{
+    text:"heLLo 6",
+    author:{connect:{id:"cjlcvog4u000v0d47dwxjkfp4"}}
+  }) {
+    id
+    text
+    author{
+      name
+    }
+  }
+}
+
+subscription ttestSub {
+  ttest
+}
+
+subscription messageSub {
+  message{
+    text
+    createdAt
+    author{
+      id
+      name
+    }
+  }
+}
+
+# Try to write your query here
+query feedMessages {
+  messages{
+    author{
+      name
+    }
+    text
+  }
+}
+
+query feedSnippits {
+  snippits{
+    name
+  }
+}
+
+query feedUsers {
+  users{
+    id
+  }
+}
+
+query feedRediss {
+  rediss{
+    name
+  }
+}
+
+
+query feedRedis {
+  rediss {
+    author {
+      name
+    }
+  }
+}
+
+query setRediskeys {
+  snippits{
+    id
+  }
+}
+
+mutation myLogin {
+  login(email:"b", password:"b") {
+    payload{
+      user{
+        id
+      }
+      token
+    }
+  }
+}
+
+
+subscription testSub {
+	snippit
+}
+
+mutation createSnippit {
+  createSnippit(data:{
+    author:{connect:{id:"cjlcvog4u000v0d47dwxjkfp4"}}
+    name:"subscription Test 55 ",
+    language:"python",
+    code:"const henery = \"the eighth \" \n } \n",
+    type:"boiler",
+    framework:"ReactJS",
+    notes:"do it like this",
+    companion:{
+      set:["https://material-ui.com/", "www.google.com", "www.briancilenti.com"]
+    },
+    keywords:{
+      set:["server", "mutation", "css", "styling", "css modules"]
+    },
+    reference:{
+      set:["https://github.com/keepforever/itm-server", "http://www.keepforeverrecords.com"]
+    },
+  }) {
+    id
+    name
+    author{
+      name
+    }
+  }
+}
